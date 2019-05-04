@@ -3,9 +3,6 @@
 Train = require('../model/trainModel');
 // Handle index actions
 exports.index = function (req, res) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
     Train.get(function (err, trains) {
         if (err) {
             res.json({
@@ -20,9 +17,6 @@ exports.index = function (req, res) {
 };
 // Handle create train actions
 exports.new = function (req, res) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
     var train = new Train();
     train.trainName = req.body.name ? req.body.name : train.name;
     train.trainRoute = req.body.route;
@@ -39,9 +33,6 @@ res.json({
 };
 // Handle view train info
 exports.view = function (req, res) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
     Train.findById(req.params.train_id, function (err, train) {
         if (err)
             res.send(err);
@@ -53,9 +44,6 @@ exports.view = function (req, res) {
 };
 // Handle update train info
 exports.update = function (req, res) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
     Train.findById(req.params.train_id, function (err, train) {
         if (err)
             res.send(err);
@@ -75,9 +63,6 @@ train.save(function (err) {
 };
 // Handle delete train
 exports.delete = function (req, res) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
     Train.remove({
         _id: req.params.train_id
     }, function (err, train) {

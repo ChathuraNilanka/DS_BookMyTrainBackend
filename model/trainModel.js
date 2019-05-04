@@ -2,18 +2,17 @@
 var mongoose = require('mongoose');
 // Setup schema
 var trainSchema = mongoose.Schema({
-    trainName: {
+    route: {
         type: String,
         required: true
     },
-    trainRoute: {
+    time: any ={},
+
+    price: any ={},
+
+    imgUrl: {
         type: String,
         required: true
-    },
-    trainType: String,
-    create_date: {
-        type: Date,
-        default: Date.now
     }
 });
 // Export Train model

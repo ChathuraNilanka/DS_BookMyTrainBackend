@@ -11,7 +11,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongoose": "^5.5.2"
+    "mongoose": "^5.5.2",
+    "nodemailer": "^6.1.1",
+    "nodemailer-postmark-transport": "^1.4.0",
+    "request": "^2.88.0",
+    "twilio": "^3.26.1"
   },
   "repository": {
     "type": "git",

@@ -5,7 +5,7 @@ let router = require('express').Router();
 router.get('/', function (req, res) {
     res.json({
         status: 'API Its Working',
-        message: 'Welcome to RESTHub crafted with love!',
+        message: 'Welcome to Train App Backend!',
     });
 });
 
@@ -13,6 +13,7 @@ router.get('/', function (req, res) {
 var trainController = require('./controller/trainController');
 var routeController = require('./controller/routeController');
 var userController = require('./controller/userController');
+var paymentController = require('./controller/paymentController');
 
 // Train details routes
 router.route('/trains/add').post(trainController.new);
@@ -32,6 +33,10 @@ router.route('/route/delete/:route_id').get(routeController.delete);
 //User details routes
 router.route('/user/add').post(userController.new);
 router.route('/user/:user_email/:password').get(userController.indexFilter);
+
+//Payment details routes
+router.route('/payment/card').post(paymentController.card);
+router.route('/payment/dialog').post(paymentController.dialog);
 
 // Export API routes
 module.exports = router;
