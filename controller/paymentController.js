@@ -1,7 +1,7 @@
 Payment = require('../model/paymentModel');
 const twilio = require('twilio');
 const request = require('request');
-const nodemailer = require('nodemailer');
+const nodeMailer = require('nodemailer');
 const postmarkTransport = require('nodemailer-postmark-transport');
 
 const accountSid = 'ACdaf97c9c801ca1b4a2f370b6bcba9baf';
@@ -25,7 +25,7 @@ exports.card = function (req, res) {
 // save the payment and check for errors
 payment.save(function (err) {
     sendSMS(phone, payment);
-
+    sendEmail(mail, payment); 
 res.json({
             message: 'New payment added!',
             data: payment
@@ -48,7 +48,7 @@ exports.dialog = function (req, res) {
 // save the payment and check for errors
 payment.save(function (err) {
     sendSMS(phone, payment);
-        
+    sendEmail(mail, payment);    
 res.json({
     message: 'New payment added!',
     data: payment
@@ -56,9 +56,11 @@ res.json({
     });
 };
 
+
+//SMS Sending function
 function sendSMS(number, details){
 
-    let msg = 'Thank You for using BookMyTrain. Your payment receipt has been sent to Your Email.\nTrain Route :'+details.trainRoute+'. \nNumber of Tickets :'+details.numberOfTickets+'. \nTotal Amount :'+details.amount+'. \nPaid by :'+details.paymentType+'.'
+    let msg = 'Thank You for using BookMyTrain. Your payment receipt has been sent to Your Email.\nTrain Route :'+details.trainRoute+'. \nNumber of Tickets :'+details.numberOfTickets+'. \nTotal Amount :'+details.amount+'. \nPaid by : '+details.paymentType+'.'
     
 
     const textMessage = {
@@ -70,4 +72,31 @@ function sendSMS(number, details){
     return client.messages.create(textMessage)
         .then(() => console.log('sms success'))
         .catch((error) => console.error('There was an error while sending the sms:', error))
+}
+
+//email sending function
+function sendEmail(email, details){
+    let transporter = nodeMailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'booklktrain@gmail.com',
+            pass: 'bookmytrain@123'
+        }
+    });
+    let mailOptions = {
+        from: '"BookMyTrain" <booklktrain@gmail.com>', // sender address
+        to: email, // list of receivers
+        subject: "Ticket Booking Information", // Subject line
+        text: 'Thank You for using BookMyTrain. Your payment receipt has been sent to Your Email.\nTrain Route :'+details.trainRoute+'. \nNumber of Tickets :'+details.numberOfTickets+'. \nTotal Amount :'+details.amount+'. \nPaid by : '+details.paymentType+'.', // plain text body
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message %s sent: %s', info.messageId, info.response);
+            res.render('index');
+    });
 }
