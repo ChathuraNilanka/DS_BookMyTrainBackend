@@ -1,8 +1,6 @@
 Payment = require('../model/paymentModel');
 const twilio = require('twilio');
-const request = require('request');
 const nodeMailer = require('nodemailer');
-const postmarkTransport = require('nodemailer-postmark-transport');
 
 const accountSid = 'ACdaf97c9c801ca1b4a2f370b6bcba9baf';
 const authToken  = 'e27fc275722b6857ad477ca4c9a5dc0d';
@@ -22,15 +20,26 @@ exports.card = function (req, res) {
     payment.time = req.body.time;
     var mail = req.body.mail;
     var phone = req.body.phone;
-// save the payment and check for errors
-payment.save(function (err) {
-    sendSMS(phone, payment);
-    sendEmail(mail, payment); 
-res.json({
-            message: 'New payment added!',
-            data: payment
+    var cardNumber = req.body.cardNuumber;
+    
+    //var cString = cardNumber.substr(0, 4)
+
+    if(true){
+        // save the payment and check for errors
+        payment.save(function (err) {
+            sendSMS(phone, payment);
+            sendEmail(mail, payment); 
+
+            res.json({
+                    message: 'New payment added!',
+                    data: payment
+                });
         });
-    });
+    }else{
+        res.json({
+            message: 'failed!'
+        });
+    }
 };
 
 
@@ -45,15 +54,27 @@ exports.dialog = function (req, res) {
     payment.date = req.body.date;
     var mail = req.body.mail;
     var phone = req.body.phone;
-// save the payment and check for errors
-payment.save(function (err) {
-    sendSMS(phone, payment);
-    sendEmail(mail, payment);    
-res.json({
-    message: 'New payment added!',
-    data: payment
+    var dialogNumber = req.body.dialogNumber;
+
+    var dString = dialogNumber.substr(0, 3)
+
+    if(true){
+        // save the payment and check for errors
+        payment.save(function (err) {
+            sendSMS(phone, payment);
+            sendEmail(mail, payment); 
+
+            res.json({
+                message: 'New payment added!',
+                data: payment
+            });
         });
-    });
+    }else{
+        res.json({
+            message: 'failed!'
+        });
+    }
+
 };
 
 
