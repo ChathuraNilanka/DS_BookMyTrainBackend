@@ -23,9 +23,7 @@ exports.new = function (req, res) {
     train.trainType = req.body.type;
 // save the train and check for errors
 train.save(function (err) {
-        // if (err)
-        //     res.json(err);
-res.json({
+    res.json({
             message: 'New train added!',
             data: train
         });

@@ -1,6 +1,6 @@
 // trainModel.js
 var mongoose = require('mongoose');
-// Setup schema
+// Setup schema with variables
 var userSchema = mongoose.Schema({
     email: {
         type: String,

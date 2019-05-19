@@ -1,6 +1,6 @@
 // trainModel.js
 var mongoose = require('mongoose');
-// Setup schema
+// Setup schema with variables
 var routeSchema = mongoose.Schema({
     mainRoute: {
         type: String,
