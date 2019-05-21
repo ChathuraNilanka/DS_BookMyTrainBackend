@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/trainApp');
+//mongoose.connect('mongodb://localhost/trainApp');
+mongoose.connect('mongodb+srv://chathura:chathura123@cluster0-ug1da.mongodb.net/trainApp?retryWrites=true', { useNewUrlParser: true });
 
 var db = mongoose.connection;
 // Setup server port
